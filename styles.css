@@ -164,20 +164,7 @@ nav ul {
             text-align: left;
         }
 
-        button {
-            background: none;
-            color: white;
-            font-weight: 800;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            text-transform: uppercase;
-            position: relative;
-            padding: 0;
-            margin-top:-50px;
-            margin-left:150px;
-            
-        }
+        
 
         button::after {
             content: '';
@@ -186,13 +173,11 @@ nav ul {
             bottom: -3px;
             width: 100%;
             height: 2px;
-            background-color: white;
+            
             transition: background-color 0.3s;
         }
 
-        button:hover::after {
-            background-color: #ec5ec6; /* Pink hover underline similar to your style */
-        }
+        
         /* Shoe Options Section - Matching the Provided Image */
 .shoe-options {
   padding: 80px 0; /* Top and bottom padding, no side padding */
@@ -417,7 +402,7 @@ nav ul {
 }
 
 .footer {
-    
+    border-top:solid white 30px;
     color: white;
     font-family: Arial, sans-serif;
 }
@@ -517,4 +502,149 @@ nav ul {
     transform: scale(1.1); /* Slight zoom */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
     cursor: pointer;
+}
+
+.bod {
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at center, #6d2c7f 0%, #1a0e2b 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+  background-color: #6d2c7f;
+  
+}
+
+/* 🌈 Animated Gradient INSIDE the Card */
+.container {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(135deg, #2b1748, #4a2066, #6d2c7f, #8e3893, #a53d98);
+  background-size: 400% 400%;
+  animation: gradientFlow 10s ease infinite;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  width: 550px;
+  overflow: hidden;
+  z-index: 1;
+  
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🪞 Subtle Glass Overlay */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  z-index: -1;
+}
+
+.head {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* 💡 Buttons */
+button {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(241, 7, 163, 0.3);
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(241, 7, 163, 0.6);
+}
+
+/* 📱 Popup */
+.popup {
+  margin-top: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 15px;
+  animation: slideUp 0.7s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.popup button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hidden {
+  display: none;
+}
+
+/* 👟 Result Section */
+#result {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.shoes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.shoes-grid img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.shoes-grid img:hover {
+  transform: scale(1.1);
+}
+
+/* ✨ Typing animation */
+.typing {
+  display: inline-block;
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(25), blink 0.6s infinite step-end alternate;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }
