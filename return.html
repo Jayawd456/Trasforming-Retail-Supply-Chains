@@ -421,92 +421,43 @@
   </form>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB2ocH-27rxaywmUJuF4y79CY1Nf-GweuE",
-      authDomain: "return-portal-41ba9.firebaseapp.com",
-      projectId: "return-portal-41ba9",
-      storageBucket: "return-portal-41ba9.appspot.com",
-      messagingSenderId: "1085242077493",
-      appId: "1:1085242077493:web:972c0917888d9674af5c7c",
-      measurementId: "G-HPCSV3JR12"
+  const firebaseConfig = {
+    apiKey: "AIzaSyB2ocH-27rxaywmUJuF4y79CY1Nf-GweuE",
+    authDomain: "return-portal-41ba9.firebaseapp.com",
+    projectId: "return-portal-41ba9",
+    storageBucket: "return-portal-41ba9.appspot.com",
+    messagingSenderId: "1085242077493",
+    appId: "1:1085242077493:web:972c0917888d9674af5c7c",
+    measurementId: "G-HPCSV3JR12"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  document.getElementById("returnForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById("name").value,
+      orderId: document.getElementById("orderId").value,
+      reason: document.getElementById("reason").value,
+      location: document.getElementById("location").value,
+      email: document.getElementById("email").value,
+      status: "Submitted",
+      timestamp: new Date()
     };
-    
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
 
-    document.getElementById("returnForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const data = {
-        name: document.getElementById("name").value,
-        orderId: document.getElementById("orderId").value,
-        reason: document.getElementById("reason").value,
-        location: document.getElementById("location").value,
-        email: document.getElementById("email").value,
-        status: "Submitted",
-        timestamp: new Date()
-      };
+    try {
+      await setDoc(doc(db, "returns", data.orderId), data);
+      alert("Return submitted successfully!");
+      this.reset();
+    } catch (err) {
+      alert("Error submitting return: " + err.message);
+    }
+  });
+</script>
 
-      try {
-        await setDoc(doc(db, "returns", data.orderId), data);
-        alert("Return submitted successfully!");
-        this.reset();
-      } catch (err) {
-        alert("Error submitting return: " + err.message);
-      }
-    });
-
-    const locationInput = document.getElementById("location");
-    const locationResults = document.getElementById("locationResults");
-
-    locationInput.addEventListener("input", async () => {
-      const query = locationInput.value.trim();
-      if (query.length < 3) {
-        locationResults.classList.add("hidden");
-        locationResults.innerHTML = "";
-        return;
-      }
-
-      const res = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=7`);
-      const data = await res.json();
-
-      locationResults.innerHTML = "";
-      if (!data.features.length) {
-        locationResults.classList.add("hidden");
-        return;
-      }
-
-      data.features.forEach(place => {
-        let loc = place.properties.name;
-        if (place.properties.city && place.properties.city !== place.properties.name) {
-          loc += ", " + place.properties.city;
-        }
-        if (place.properties.state) {
-          loc += ", " + place.properties.state;
-        }
-        if (place.properties.country) {
-          loc += ", " + place.properties.country;
-        }
-        const div = document.createElement("div");
-        div.textContent = loc;
-        div.addEventListener("click", () => {
-          locationInput.value = loc;
-          locationResults.innerHTML = "";
-          locationResults.classList.add("hidden");
-          locationInput.blur();
-        });
-        locationResults.appendChild(div);
-      });
-      locationResults.classList.remove("hidden");
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!locationInput.contains(e.target) && !locationResults.contains(e.target)) {
-        locationResults.classList.add("hidden");
-      }
-    });
-  </script>
 </body>
 </html>
